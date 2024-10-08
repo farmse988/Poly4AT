@@ -41,12 +41,6 @@ First, load the Poly4AT package:
 
 ``` r
 library(Poly4AT)
-#> Warning: vorhergehender Import 'shiny::validate' durch 'jsonlite::validate'
-#> während des Ladens von 'Poly4AT' ersetzt
-#> Warning: vorhergehender Import 'shiny::renderDataTable' durch
-#> 'DT::renderDataTable' während des Ladens von 'Poly4AT' ersetzt
-#> Warning: vorhergehender Import 'shiny::dataTableOutput' durch
-#> 'DT::dataTableOutput' während des Ladens von 'Poly4AT' ersetzt
 ```
 
 ### Start the Shiny Application

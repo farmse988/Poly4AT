@@ -47,7 +47,7 @@ You can install Poly4AT via CRAN
 ### Loading the Package
 First, load the Poly4AT package:
 
-```{r example}
+```{r, message=FALSE, results='hide', warning=FALSE }
 library(Poly4AT)
 ```
 
@@ -67,10 +67,12 @@ You can enter a single coordinate within the borders of Austria:
 ![request single coordinate](man/figures/coord.png "Einzelkoordinate")
 
 
+
 ## Example: Uploading Multiple Coordinates
 You can upload multiple coordinates to the server and request polygons:
 
 ![request multiple polygons](man/figures/coord_multi.jpeg "Einzelkoordinate")
+
 
 
 
