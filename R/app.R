@@ -1,3 +1,13 @@
+#' Open Shiny App
+#'
+#' @return None
+#' @export
+#'
+#' @examples
+#' poly4AT_processor()
+
+
+
 
 poly4AT_processor <- function(...) {
   library(shiny)
@@ -82,8 +92,8 @@ poly4AT_processor <- function(...) {
           tabName = "About",
           fluidRow(
             column(
-              width = 8, offset = 2, # 8 von 12 Teilen ausnutzen und zentrieren
-              style = "text-align: justify;", # Blocksatz
+              width = 8, offset = 2,
+              style = "text-align: justify;",
               h2(strong("Über Poly4AT")),
               div(style = "margin-bottom: 20px;",
                   p("Diese Website wurde entwickelt, um die API-Schnittstelle zu INVEKOS Feldstück-Polygone auch ohne Programmierkenntnisse nutzen zu können. Die App ermöglicht es, eine einzelne Koordinate abzufragen sowie eine Koordinatenliste hochzuladen, um Informationen über die Schläge zu erhalten.")
@@ -141,7 +151,6 @@ poly4AT_processor <- function(...) {
 
 
     load(system.file("data/austria_boundary.RData", package = "Poly4AT"))
-    #austria_boundary <- st_read("austria_boundary.shp")
 
     output$map <- renderLeaflet({
       leaflet() %>%
@@ -173,11 +182,10 @@ poly4AT_processor <- function(...) {
       longitude <- as.numeric(input$longitude)
       selected_year <- input$year
 
-      # Create a point for the input coordinates
       point <- st_point(c(longitude, latitude))
       point_sf <- st_sfc(point, crs = st_crs(austria_boundary))
 
-      # Check if the point is within the Austria boundary
+
       if (st_contains(austria_boundary, point_sf, sparse = FALSE)) {
         bbox <- paste(longitude - 0.001, latitude - 0.001, longitude + 0.001, latitude + 0.001, sep = ",")
 
@@ -266,7 +274,7 @@ poly4AT_processor <- function(...) {
 
       coordinates <- inFile[, c("Name", "latitude", "longitude")]
 
-      # Check if all coordinates are within Austria
+
       valid_coordinates <- list()
       invalid_coordinates <- list()
 
@@ -289,7 +297,7 @@ poly4AT_processor <- function(...) {
         ))
       }
 
-      coordinates <- do.call(rbind, valid_coordinates)  # Keep only valid coordinates
+      coordinates <- do.call(rbind, valid_coordinates)
 
       coordinates$bbox <- mapply(function(lon, lat) {
         paste(lon - 0.001, lat - 0.001, lon + 0.001, lat + 0.001, sep = ",")
@@ -348,7 +356,7 @@ poly4AT_processor <- function(...) {
       output$shape <- renderDataTable({
         tableshape <- st_drop_geometry(all_filtered_sf())
         tableshape$Name <- rownames(tableshape)
-        coordinates <- coordinatesinput$coordinates  # Extracting coordinates
+        coordinates <- coordinatesinput$coordinates
         tableshape <- merge(tableshape, coordinates[,-4], by="Name")
         tableshape
       })
