@@ -1,0 +1,78 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# Poly4AT
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of Poly4AT it to access the INVEKOS API for polygons
+
+## Installation
+
+You can install the development version of Poly4AT from [GitHub](https://github.com/farmse988/Poly4AT.git) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("farmse988/Poly4AT")
+```
+
+You can install Poly4AT via CRAN
+
+``` r
+# install.packages("Poly4AT")
+```
+
+## Usage
+
+### Loading the Package
+First, load the Poly4AT package:
+
+```{r example}
+library(Poly4AT)
+```
+
+
+### Start the Shiny Application
+To start the Shiny application, simply run:
+
+```{r, message=FALSE, results='hide', warning=FALSE }
+poly4AT_processor()
+```
+
+
+## Example: Entering a Single Coordinate
+
+You can enter a single coordinate within the borders of Austria:
+
+![request single coordinate](coord.png "Einzelkoordinate")
+
+
+## Example: Uploading Multiple Coordinates
+You can upload multiple coordinates to the server and request polygons:
+
+![request multiple polygons](coord_multi.jpeg "Einzelkoordinate")
+
+
+
+## Citation:
+
+
+```{r }
+citation("Poly4AT")
+```
+
+
+
