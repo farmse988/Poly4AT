@@ -12,6 +12,13 @@ polygons.
 
 ## Installation
 
+Install the following packages if they are not already installed.
+```r
+
+# install.packages(c("shiny", "sf", "leaflet", "geojsonsf", "httr", "jsonlite", "bslib", "shinydashboard", "DT", "writexl", "leaflet.extras"))
+```
+
+
 You can install the development version of Poly4AT from
 [GitHub](https://github.com/farmse988/Poly4AT.git) with:
 
