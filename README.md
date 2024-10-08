@@ -6,7 +6,9 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of Poly4AT it to access the INVEKOS API for polygons
+The goal of Poly4AT it to access the [INVEKOS
+API](https://gis.lfrz.gv.at/api/geodata/i009501/ogc/features/v1/) for
+polygons.
 
 ## Installation
 
