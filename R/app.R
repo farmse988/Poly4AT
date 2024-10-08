@@ -139,8 +139,9 @@ poly4AT_processor <- function(...) {
       actionButton("updateMap", "Update Map")
     })
 
-    # Load the Austria boundary shapefile
-    austria_boundary <- st_read("austria_boundary.shp")
+
+    load(system.file("data/austria_boundary.RData", package = "Poly4AT"))
+    #austria_boundary <- st_read("austria_boundary.shp")
 
     output$map <- renderLeaflet({
       leaflet() %>%
@@ -370,4 +371,4 @@ poly4AT_processor <- function(...) {
 }
 
 
-poly4AT_processor
+poly4AT_processor()
