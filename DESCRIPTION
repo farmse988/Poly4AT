@@ -1,5 +1,5 @@
 Package: Poly4AT
-Title: Access INVEKOS API for Field Polygons)
+Title: Access INVEKOS API for Field Polygons
 Version: 0.0.0.9000
 Authors@R: 
     person("Sebastian", "Wieser", , "poly4at@gmail.com", role = c("aut", "cre"),
@@ -22,4 +22,5 @@ Imports:
     writexl,
     leaflet.extras
 Suggests:
-    testthat
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
