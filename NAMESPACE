@@ -10,5 +10,4 @@ import(DT)
 import(writexl)
 import(leaflet.extras)
 
-
 exportPattern("^[[:alpha:]]+")

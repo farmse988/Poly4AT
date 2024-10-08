@@ -7,10 +7,10 @@
 poly4AT_processor(...)
 }
 \value{
-None
+A Shiny application.
 }
 \description{
-Open Shiny App
+Launches the Poly4AT Shiny application for querying geographic data based on coordinates.
 }
 \examples{
 poly4AT_processor()

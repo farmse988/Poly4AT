@@ -13,11 +13,11 @@ polygons.
 ## Installation
 
 Install the following packages if they are not already installed.
-```r
+
+``` r
 
 # install.packages(c("shiny", "sf", "leaflet", "geojsonsf", "httr", "jsonlite", "bslib", "shinydashboard", "DT", "writexl", "leaflet.extras"))
 ```
-
 
 You can install the development version of Poly4AT from
 [GitHub](https://github.com/farmse988/Poly4AT.git) with:
@@ -41,6 +41,12 @@ First, load the Poly4AT package:
 
 ``` r
 library(Poly4AT)
+#> Warning: vorhergehender Import 'shiny::validate' durch 'jsonlite::validate'
+#> während des Ladens von 'Poly4AT' ersetzt
+#> Warning: vorhergehender Import 'shiny::renderDataTable' durch
+#> 'DT::renderDataTable' während des Ladens von 'Poly4AT' ersetzt
+#> Warning: vorhergehender Import 'shiny::dataTableOutput' durch
+#> 'DT::dataTableOutput' während des Ladens von 'Poly4AT' ersetzt
 ```
 
 ### Start the Shiny Application
@@ -56,7 +62,7 @@ poly4AT_processor()
 You can enter a single coordinate within the borders of Austria:
 
 <figure>
-<img src="coord.png" title="Einzelkoordinate"
+<img src="man/figures/coord.png" title="Einzelkoordinate"
 alt="request single coordinate" />
 <figcaption aria-hidden="true">request single coordinate</figcaption>
 </figure>
@@ -66,7 +72,7 @@ alt="request single coordinate" />
 You can upload multiple coordinates to the server and request polygons:
 
 <figure>
-<img src="coord_multi.jpeg" title="Einzelkoordinate"
+<img src="man/figures/coord_multi.jpeg" title="Einzelkoordinate"
 alt="request multiple polygons" />
 <figcaption aria-hidden="true">request multiple polygons</figcaption>
 </figure>

@@ -1,6 +1,8 @@
 #' Open Shiny App
 #'
-#' @return None
+#' Launches the Poly4AT Shiny application for querying geographic data based on coordinates.
+#'
+#' @return A Shiny application.
 #' @export
 #'
 #' @examples

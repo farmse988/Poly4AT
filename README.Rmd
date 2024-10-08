@@ -64,13 +64,13 @@ poly4AT_processor()
 
 You can enter a single coordinate within the borders of Austria:
 
-![request single coordinate](coord.png "Einzelkoordinate")
+![request single coordinate](man/figures/coord.png "Einzelkoordinate")
 
 
 ## Example: Uploading Multiple Coordinates
 You can upload multiple coordinates to the server and request polygons:
 
-![request multiple polygons](coord_multi.jpeg "Einzelkoordinate")
+![request multiple polygons](man/figures/coord_multi.jpeg "Einzelkoordinate")
 
 
 
