@@ -6,8 +6,12 @@
 #' @export
 #'
 #' @examples
-#' poly4AT_processor()
-
+#' \dontrun{
+#'   poly4AT_processor()
+#' }
+#'
+# Example of using austria_boundary()
+#' austria_boundary() # contains the Austrian border geo information
 
 
 poly4AT_processor <- function(...) {
@@ -41,7 +45,7 @@ poly4AT_processor <- function(...) {
                   column(width = 4,
                          textInput("latitude", "Latitude:", value = ""),
                          textInput("longitude", "Longitude:", value = ""),
-                         selectInput("year", "Jahr auswählen:", choices = NULL),
+                         selectInput("year", "Jahr auswÃ¤hlen:", choices = NULL),
                          actionButton("updateMap", "Polygone anzeigen")),
                   column(width = 8,
                          conditionalPanel(condition = "!output.loading",
@@ -65,7 +69,7 @@ poly4AT_processor <- function(...) {
                              title = "Jahresauswahl und Polygone", status = "primary", solidHeader = TRUE, width = 12,
                              fluidRow(
                                column(width = 6,
-                                      selectInput("yearmulti", "Jahr auswählen:", choices = NULL, width = '100%')),
+                                      selectInput("yearmulti", "Jahr auswÃ¤hlen:", choices = NULL, width = '100%')),
                                column(width = 6,
                                       actionButton("showmapmulti", "Polygone anzeigen", icon = icon("map"), style = "width: 100%;"))
                              ),
@@ -95,27 +99,27 @@ poly4AT_processor <- function(...) {
             column(
               width = 8, offset = 2,
               style = "text-align: justify;",
-              h2(strong("Über Poly4AT")),
+              h2(strong("Ãber Poly4AT")),
               div(style = "margin-bottom: 20px;",
-                  p("Diese Website wurde entwickelt, um die API-Schnittstelle zu INVEKOS Feldstück-Polygone auch ohne Programmierkenntnisse nutzen zu können. Die App ermöglicht es, eine einzelne Koordinate abzufragen sowie eine Koordinatenliste hochzuladen, um Informationen über die Schläge zu erhalten.")
+                  p("Diese Website wurde entwickelt, um die API-Schnittstelle zu INVEKOS FeldstÃ¼ck-Polygone auch ohne Programmierkenntnisse nutzen zu kÃ¶nnen. Die App ermÃ¶glicht es, eine einzelne Koordinate abzufragen sowie eine Koordinatenliste hochzuladen, um Informationen Ã¼ber die SchlÃ¤ge zu erhalten.")
               ),
 
               h3(strong("Datenweiterverarbeitung")),
               div(style = "margin-bottom: 20px;",
                   p("Die auf dieser Website angezeigten Daten stammen von der INVEKOS API-Schnittstelle. Die Weiterverwendung der Daten ist nur mit entsprechender Zitierung von AMA INVEKOS erlaubt."),
 
-                  p("Für die Daten haben wir folgenden Zitiervorschlag:"),
+                  p("FÃ¼r die Daten haben wir folgenden Zitiervorschlag:"),
                   tags$blockquote(
                     "AMA. (Jahr der Abfrage). OGC Features API [API]. Abgerufen am 1. Oktober 2024, von https://gis.lfrz.gv.at/ogcapi009501/ogc/features/api",
                     style = "font-style: italic; color: #555;"
                   ),
 
-                  p("Für Poly4AT verwenden Sie die Citation in R:"),
+                  p("FÃ¼r Poly4AT verwenden Sie die Citation in R:"),
                   tags$blockquote(
                     "Wieser S (2024). Poly4AT: Access INVEKOS API for Field Polygons. R package version 1.0.",
                     style = "font-style: italic; color: #555;"
                   ),
-                  p("Hier ist der BibTeX-Eintrag für LaTeX-Benutzer:"),
+                  p("Hier ist der BibTeX-Eintrag fÃ¼r LaTeX-Benutzer:"),
                   tags$blockquote(
                     "@Manual{Poly4AT,\n",
                     "  title = {Poly4AT: Access INVEKOS API for Field Polygons},\n",
@@ -129,19 +133,19 @@ poly4AT_processor <- function(...) {
 
               h3(strong("Datenschutz")),
               div(style = "margin-bottom: 20px;",
-                  p("Bitte beachten Sie, dass wir keine persönlichen Daten ohne Zustimmung sammeln oder weitergeben."),
+                  p("Bitte beachten Sie, dass wir keine persÃ¶nlichen Daten ohne Zustimmung sammeln oder weitergeben."),
                   tags$ul(
-                    tags$li("Ihre Inputdaten werden nicht gespeichert und sind nach der Sitzung gelöscht.")
+                    tags$li("Ihre Inputdaten werden nicht gespeichert und sind nach der Sitzung gelÃ¶scht.")
                   )
               ),
 
               h3(strong("Lizenz")),
               div(style = "margin-bottom: 20px;",
-                  p("Der Inhalt und der Quellcode dieser Website unterliegen der Lizenz [SWT]. Dies bedeutet, dass Sie den Quellcode verwenden, modifizieren und weiterverbreiten können, sofern die ursprüngliche Urheberschaft anerkannt wird.")
+                  p("Der Inhalt und der Quellcode dieser Website unterliegen der MIT Licence. Dies bedeutet, dass Sie den Quellcode verwenden, modifizieren und weiterverbreiten kÃ¶nnen, sofern die ursprÃ¼ngliche Urheberschaft anerkannt wird.")
               ),
 
               h3(strong("Kontakt")),
-              p("Wenn Sie Fragen oder Anmerkungen bezüglich Poly4AT haben, kontaktieren Sie uns bitte unter ",
+              p("Wenn Sie Fragen oder Anmerkungen bezÃ¼glich Poly4AT haben, kontaktieren Sie uns bitte unter ",
                 a("poly4at@gmail.com", href = "mailto:poly4at@gmail.com"))
             )
           )
@@ -229,7 +233,7 @@ poly4AT_processor <- function(...) {
           leafletProxy("map") %>%
             clearShapes() %>%
             addPolygons(data = AnfrageDaten2,
-                        popup = ~paste("Fläche ha: ", sprintf("%.1f", sl_flaeche_brutto_ha),
+                        popup = ~paste("FlÃ¤che ha: ", sprintf("%.1f", sl_flaeche_brutto_ha),
                                        "<br>",
                                        "Schlagnutzung: ", snar_bezeichnung)) %>%
             addMarkers(lng = longitude, lat = latitude) %>%
@@ -243,7 +247,7 @@ poly4AT_processor <- function(...) {
       } else {
         showModal(modalDialog(
           title = "Fehler",
-          "Die eingegebenen Koordinaten liegen außerhalb von Österreich. Bitte versuchen Sie es erneut."
+          "Die eingegebenen Koordinaten liegen auÃerhalb von Ãsterreich. Bitte versuchen Sie es erneut."
         ))
       }
     })
@@ -306,7 +310,7 @@ poly4AT_processor <- function(...) {
       if (length(invalid_coordinates) > 0) {
         showModal(modalDialog(
           title = "Fehler",
-          paste("Die folgenden Koordinaten liegen außerhalb von Österreich:",
+          paste("Die folgenden Koordinaten liegen auÃerhalb von Ãsterreich:",
                 paste(sapply(invalid_coordinates, function(x) x[1]), collapse = ", "))
         ))
       }
@@ -358,7 +362,7 @@ poly4AT_processor <- function(...) {
         clearShapes() %>%
         addProviderTiles('Esri.WorldImagery') %>%
         addPolygons(data = all_filtered_sf(),
-                    popup = paste("Fläche ha: ", sprintf("%.1f", all_filtered_sf()$sl_flaeche_brutto_ha),
+                    popup = paste("FlÃ¤che ha: ", sprintf("%.1f", all_filtered_sf()$sl_flaeche_brutto_ha),
                                   "<br>",
                                   "Schlagnutzung: ", all_filtered_sf()$snar_bezeichnung)) %>%
         addMarkers(data = coordinates,

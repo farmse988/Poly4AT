@@ -13,5 +13,9 @@ A Shiny application.
 Launches the Poly4AT Shiny application for querying geographic data based on coordinates.
 }
 \examples{
-poly4AT_processor()
+\dontrun{
+  poly4AT_processor()
+}
+
+austria_boundary() # contains the Austrian border geo information
 }
