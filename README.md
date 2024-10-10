@@ -6,7 +6,7 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of Poly4AT it to access the [INVEKOS
+The goal of Poly4AT is to access the [INVEKOS
 API](https://gis.lfrz.gv.at/api/geodata/i009501/ogc/features/v1/) for
 polygons.
 
@@ -77,13 +77,13 @@ alt="request multiple polygons" />
 citation("Poly4AT")
 #> Um Paket 'Poly4AT' in Publikationen zu zitieren, nutzen Sie bitte:
 #> 
-#>   Wieser S (2024). _Poly4AT: Access INVEKOS API for Field Polygons)_. R
+#>   Wieser S (2024). _Poly4AT: Access INVEKOS API for Field Polygons_. R
 #>   package version 0.0.0.9000.
 #> 
 #> Ein BibTeX-Eintrag für LaTeX-Benutzer ist
 #> 
 #>   @Manual{,
-#>     title = {Poly4AT: Access INVEKOS API for Field Polygons)},
+#>     title = {Poly4AT: Access INVEKOS API for Field Polygons},
 #>     author = {Sebastian Wieser},
 #>     year = {2024},
 #>     note = {R package version 0.0.0.9000},

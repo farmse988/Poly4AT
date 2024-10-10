@@ -112,7 +112,7 @@ poly4AT_processor <- function(...) {
 
                   p("Für Poly4AT verwenden Sie die Citation in R:"),
                   tags$blockquote(
-                    "Wieser S (2024). Poly4AT: Access INVEKOS API for Field Polygons_. R package version 0.0.0.9000.",
+                    "Wieser S (2024). Poly4AT: Access INVEKOS API for Field Polygons. R package version 1.0.",
                     style = "font-style: italic; color: #555;"
                   ),
                   p("Hier ist der BibTeX-Eintrag für LaTeX-Benutzer:"),
@@ -121,7 +121,7 @@ poly4AT_processor <- function(...) {
                     "  title = {Poly4AT: Access INVEKOS API for Field Polygons},\n",
                     "  author = {Sebastian Wieser},\n",
                     "  year = {2024},\n",
-                    "  note = {R package version 0.0.0.9000}\n",
+                    "  note = {R package version 1.0}\n",
                     "}",
                     style = "font-family: monospace; font-size: 14px; color: #555;"
                   )
