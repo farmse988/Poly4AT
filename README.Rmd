@@ -26,7 +26,7 @@ The goal of Poly4AT is to access the [INVEKOS API](https://gis.lfrz.gv.at/api/ge
 Install the following packages if they are not already installed.
 ```r
 
-# install.packages(c("shiny", "sf", "leaflet", "geojsonsf", "httr", "jsonlite", "bslib", "shinydashboard", "DT", "writexl", "leaflet.extras"))
+# install.packages(c("shiny", "sf", "leaflet", "geojsonsf", "httr", "jsonlite", "shinydashboard", "DT", "leaflet.extras"))
 ```
 
 

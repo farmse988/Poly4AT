@@ -11,7 +11,7 @@
 #' @import httr
 #' @import jsonlite
 #' @import shinydashboard
-#' @import DT
+#' @importFrom DT dataTableOutput renderDataTable
 #' @import leaflet.extras
 #' @import utils
 #'

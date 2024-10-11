@@ -4,6 +4,8 @@
 # Poly4AT
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/farmse988/Poly4AT/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/farmse988/Poly4AT/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of Poly4AT is to access the [INVEKOS
@@ -16,7 +18,7 @@ Install the following packages if they are not already installed.
 
 ``` r
 
-# install.packages(c("shiny", "sf", "leaflet", "geojsonsf", "httr", "jsonlite", "bslib", "shinydashboard", "DT", "writexl", "leaflet.extras"))
+# install.packages(c("shiny", "sf", "leaflet", "geojsonsf", "httr", "jsonlite", "shinydashboard", "DT", "leaflet.extras"))
 ```
 
 You can install the development version of Poly4AT from
@@ -78,7 +80,7 @@ citation("Poly4AT")
 #> Um Paket 'Poly4AT' in Publikationen zu zitieren, nutzen Sie bitte:
 #> 
 #>   Wieser S (2024). _Poly4AT: Access INVEKOS API for Field Polygons_. R
-#>   package version 0.0.0.9000.
+#>   package version 1.0.
 #> 
 #> Ein BibTeX-Eintrag für LaTeX-Benutzer ist
 #> 
@@ -86,7 +88,7 @@ citation("Poly4AT")
 #>     title = {Poly4AT: Access INVEKOS API for Field Polygons},
 #>     author = {Sebastian Wieser},
 #>     year = {2024},
-#>     note = {R package version 0.0.0.9000},
+#>     note = {R package version 1.0},
 #>   }
 ```
 
