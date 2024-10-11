@@ -3,11 +3,6 @@
 
 # Poly4AT
 
-<!-- badges: start -->
-
-[![R-CMD-check](https://github.com/farmse988/Poly4AT/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/farmse988/Poly4AT/actions/workflows/R-CMD-check.yaml)
-<!-- badges: end -->
-
 The goal of Poly4AT is to access the [INVEKOS
 API](https://gis.lfrz.gv.at/api/geodata/i009501/ogc/features/v1/) for
 polygons.
