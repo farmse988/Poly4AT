@@ -11,29 +11,13 @@ A simple feature collection (sf) with 1 feature and 1 field:
 \item{geometry}{A POLYGON representing the boundary of Austria.}
 }
 }
+\source{
+\url{https://www.data.gv.at}
+}
 \usage{
 austria_boundary
 }
 \description{
 A simple feature collection representing the boundary of Austria.
-}
-\details{
-This dataset contains geographical boundary information for Austria.
-It is represented as a polygon with a single feature.
-
-The geometry is in WGS 84 coordinate reference system (CRS).
-The bounding box of the polygon is:
-\itemize{
-\item xmin: 9.521155
-\item ymin: 46.37864
-\item xmax: 17.14834
-\item ymax: 49.00977
-}
-}
-\examples{
-library(sf)
-data("austria_boundary", package = "Poly4AT")
-plot(austria_boundary)
-
 }
 \keyword{datasets}

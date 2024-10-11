@@ -17,9 +17,5 @@ Launches the Poly4AT Shiny application for querying geographic data based on coo
   poly4AT_processor()
 }
 
-\dontrun{
-  # Load the dataset to access its content
-  utils::data("austria_boundary", package = "Poly4AT")
-  print(austria_boundary) # contains the Austrian border geo information
-}
+
 }

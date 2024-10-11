@@ -22,11 +22,7 @@
 #'   poly4AT_processor()
 #' }
 #'
-#' \dontrun{
-#'   # Load the dataset to access its content
-#'   utils::data("austria_boundary", package = "Poly4AT")
-#'   print(austria_boundary) # contains the Austrian border geo information
-#' }
+#'
 
 
 poly4AT_processor <- function() {
@@ -111,7 +107,8 @@ poly4AT_processor <- function() {
 
                          shiny::p("Für die Daten haben wir folgenden Zitiervorschlag:"),
                          shiny::tags$blockquote(
-                           "AMA. (Jahr der Abfrage). OGC Features API. Abgerufen am 1. Oktober 2024, von https://gis.lfrz.gv.at/ogcapi009501/ogc/features/api",
+                           "AMA. (Jahr der Abfrage). OGC Features API
+                           . Abgerufen am 1. Oktober 2024, von https://gis.lfrz.gv.at/ogcapi009501/ogc/features/api",
                            style = "font-style: italic; color: #555;"
                          ),
 
@@ -163,7 +160,6 @@ poly4AT_processor <- function() {
     output$loading <- shiny::renderUI({
       shiny::actionButton("updateMap", "Update Map")
     })
-
 
     utils::data("austria_boundary", package = "Poly4AT")
 
@@ -231,7 +227,7 @@ poly4AT_processor <- function() {
           leaflet::leafletProxy("map") %>%
             leaflet::clearShapes() %>%
             leaflet::addPolygons(data = AnfrageDaten2,
-                                 popup = ~paste("FlCB$che ha: ", sprintf("%.1f", sl_flaeche_brutto_ha),
+                                 popup = ~paste("Fläche ha: ", sprintf("%.1f", sl_flaeche_brutto_ha),
                                                 "<br>",
                                                 "Schlagnutzung: ", snar_bezeichnung)) %>%
             leaflet::addMarkers(lng = longitude, lat = latitude) %>%
@@ -245,7 +241,7 @@ poly4AT_processor <- function() {
       } else {
         shiny::showModal(shiny::modalDialog(
           title = "Fehler",
-          "Die eingegebenen Koordinaten liegen auCBerhalb von CBsterreich. Bitte versuchen Sie es erneut."
+          "Die eingegebenen Koordinaten liegen außerhalb von Österreich. Bitte versuchen Sie es erneut."
         ))
       }
     })
@@ -308,7 +304,7 @@ poly4AT_processor <- function() {
       if (length(invalid_coordinates) > 0) {
         shiny::showModal(shiny::modalDialog(
           title = "Fehler",
-          paste("Die folgenden Koordinaten liegen auCBerhalb von CBsterreich:",
+          paste("Die folgenden Koordinaten liegen außerhalb von Österreich:",
                 paste(sapply(invalid_coordinates, function(x) x[1]), collapse = ", "))
         ))
       }
@@ -360,7 +356,7 @@ poly4AT_processor <- function() {
         leaflet::clearShapes() %>%
         leaflet::addProviderTiles('Esri.WorldImagery') %>%
         leaflet::addPolygons(data = all_filtered_sf(),
-                             popup = paste("FlCB$che ha: ", sprintf("%.1f", all_filtered_sf()$sl_flaeche_brutto_ha),
+                             popup = paste("Fläche ha: ", sprintf("%.1f", all_filtered_sf()$sl_flaeche_brutto_ha),
                                            "<br>",
                                            "Schlagnutzung: ", all_filtered_sf()$snar_bezeichnung)) %>%
         leaflet::addMarkers(data = coordinates,
