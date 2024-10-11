@@ -89,3 +89,15 @@ citation("Poly4AT")
 #>     note = {R package version 0.0.0.9000},
 #>   }
 ```
+
+## Citation for API Data
+
+AMA. (year of request). OGC Features API \[API\].requested on 1 October
+2024, from <https://gis.lfrz.gv.at/ogcapi009501/ogc/features/api>
+
+## Language
+
+The user interface (UI) of Shiny is in German, while the documentation
+and examples are in English. This ensures a user-friendly experience for
+German-speaking users and at the same time comprehensive information for
+international users.

@@ -111,7 +111,7 @@ poly4AT_processor <- function() {
 
                          shiny::p("Für die Daten haben wir folgenden Zitiervorschlag:"),
                          shiny::tags$blockquote(
-                           "AMA. (Jahr der Abfrage). OGC Features API [API]. Abgerufen am 1. Oktober 2024, von https://gis.lfrz.gv.at/ogcapi009501/ogc/features/api",
+                           "AMA. (Jahr der Abfrage). OGC Features API. Abgerufen am 1. Oktober 2024, von https://gis.lfrz.gv.at/ogcapi009501/ogc/features/api",
                            style = "font-style: italic; color: #555;"
                          ),
 
