@@ -5,148 +5,149 @@
 #' @return A Shiny application.
 #' @export
 #'
+#' @import shiny
+#' @import leaflet
+#' @import sf
+#' @import httr
+#' @import jsonlite
+#' @import shinydashboard
+#' @import DT
+#' @import leaflet.extras
+#' @import utils
+#'
+#'
+#'
 #' @examples
 #' \dontrun{
 #'   poly4AT_processor()
 #' }
 #'
-# Example of using austria_boundary()
-#' austria_boundary() # contains the Austrian border geo information
+#' \dontrun{
+#'   # Load the dataset to access its content
+#'   utils::data("austria_boundary", package = "Poly4AT")
+#'   print(austria_boundary) # contains the Austrian border geo information
+#' }
 
 
-poly4AT_processor <- function(...) {
-  library(shiny)
-  library(sf)
-  library(leaflet)
-  library(geojsonsf)
-  library(httr)
-  library(jsonlite)
-  library(bslib)
-  library(shinydashboard)
-  library(DT)
-  library(writexl)
-  library(leaflet.extras)
+poly4AT_processor <- function() {
 
 
-  ui <- dashboardPage(
-    dashboardHeader(title = "Poly4AT"),
-    dashboardSidebar(
-      sidebarMenu(
-        menuItem("Einzelkoordinate abfragen", tabName = "Singlerequest", icon = icon("location-dot")),
-        menuItem("Koordinatenliste abfragen", tabName = "Mulitrequest", icon = icon("location-dot")),
-        menuItem("Über Poly4AT", tabName = "About", icon = icon("circle-info"))
+  ui <- shinydashboard::dashboardPage(
+    shinydashboard::dashboardHeader(title = "Poly4AT"),
+    shinydashboard::dashboardSidebar(
+      shinydashboard::sidebarMenu(
+        shinydashboard::menuItem("Einzelkoordinate abfragen", tabName = "Singlerequest", icon = shiny::icon("location-dot")),
+        shinydashboard::menuItem("Koordinatenliste abfragen", tabName = "Mulitrequest", icon = shiny::icon("location-dot")),
+        shinydashboard::menuItem("Über Poly4AT", tabName = "About", icon = shiny::icon("circle-info"))
       )
     ),
     skin = "black",
-    dashboardBody(
-      tabItems(
-        tabItem(tabName = "Singlerequest",
-                fluidRow(
-                  column(width = 4,
-                         textInput("latitude", "Latitude:", value = ""),
-                         textInput("longitude", "Longitude:", value = ""),
-                         selectInput("year", "Jahr auswÃ¤hlen:", choices = NULL),
-                         actionButton("updateMap", "Polygone anzeigen")),
-                  column(width = 8,
-                         conditionalPanel(condition = "!output.loading",
-                                          leafletOutput("map")))
-                )),
-        tabItem(tabName = "Mulitrequest",
-                fluidRow(
-                  column(width = 4,
-                         box(title = "Daten-Upload", status = "primary", solidHeader = TRUE, width = 12,
-                             fileInput('file1', 'Excel-Datei mit Koordinaten hochladen
-                                     (Spalte 1: Name, Spalte 2: latitude, Spalte 3: longitude)',
-                                       accept = c(".xlsx")),
-                             actionButton("showTable", "Tabelle mit Koordinaten anzeigen", icon = icon("table"), style = "margin-bottom: 10px; width: 100%;"),
-                             br(),
-                             dataTableOutput("file2")
-                         )
-                  ),
+    shinydashboard::dashboardBody(
+      shinydashboard::tabItems(
+        shinydashboard::tabItem(tabName = "Singlerequest",
+                                shiny::fluidRow(
+                                  shiny::column(width = 4,
+                                                shiny::textInput("latitude", "Latitude:", value = ""),
+                                                shiny::textInput("longitude", "Longitude:", value = ""),
+                                                shiny::selectInput("year", "Jahr auswählen:", choices = NULL),
+                                                shiny::actionButton("updateMap", "Polygone anzeigen")),
+                                  shiny::column(width = 8,
+                                                shiny::conditionalPanel(condition = "!output.loading",
+                                                                        leaflet::leafletOutput("map")))  # Korrektur hier
+                                )),
+        shinydashboard::tabItem(tabName = "Mulitrequest",
+                                shiny::fluidRow(
+                                  shiny::column(width = 4,
+                                                shinydashboard::box(title = "Daten-Upload", status = "primary", solidHeader = TRUE, width = 12,
+                                                                    shiny::fileInput('file1', 'Excel-Datei mit Koordinaten hochladen (Spalte 1: Name, Spalte 2: latitude, Spalte 3: longitude)',
+                                                                                     accept = c(".xlsx")),
+                                                                    shiny::actionButton("showTable", "Tabelle mit Koordinaten anzeigen", icon = shiny::icon("table"), style = "margin-bottom: 10px; width: 100%;"),
+                                                                    shiny::br(),
+                                                                    DT::dataTableOutput("file2")
+                                                )
+                                  ),
 
-                  column(width = 8,
-                         box(maximizable = TRUE,
-                             title = "Jahresauswahl und Polygone", status = "primary", solidHeader = TRUE, width = 12,
-                             fluidRow(
-                               column(width = 6,
-                                      selectInput("yearmulti", "Jahr auswÃ¤hlen:", choices = NULL, width = '100%')),
-                               column(width = 6,
-                                      actionButton("showmapmulti", "Polygone anzeigen", icon = icon("map"), style = "width: 100%;"))
-                             ),
-                             br(),
+                                  shiny::column(width = 8,
+                                                shinydashboard::box(maximizable = TRUE,
+                                                                    title = "Jahresauswahl und Polygone", status = "primary", solidHeader = TRUE, width = 12,
+                                                                    shiny::fluidRow(
+                                                                      shiny::column(width = 6,
+                                                                                    shiny::selectInput("yearmulti", "Jahr auswählen:", choices = NULL, width = '100%')),
+                                                                      shiny::column(width = 6,
+                                                                                    shiny::actionButton("showmapmulti", "Polygone anzeigen", icon = shiny::icon("map"), style = "width: 100%;"))
+                                                                    ),
+                                                                    shiny::br(),
+                                                                    shiny::conditionalPanel(condition = "!output.loading",
+                                                                                            leaflet::leafletOutput("mapmulti", height = "500px")),  # Korrektur hier
+                                                                    shiny::br()),
 
-                             conditionalPanel(condition = "!output.loading",
-                                              leafletOutput("mapmulti", height = "500px")),
-                             br()),
+                                                shinydashboard::box(
+                                                  width = 12,
+                                                  shiny::actionButton("showshape", "Informationen anzeigen", icon = shiny::icon("info-circle"), style = "margin-bottom: 10px; width: 100%;"),
+                                                  shiny::br(),
+                                                  DT::dataTableOutput("shape"),
+                                                  style = "overflow-y: auto; overflow-x: auto;"),
 
-                         box(
-                           width = 12,
-                           actionButton("showshape", "Informationen anzeigen", icon = icon("info-circle"), style = "margin-bottom: 10px; width: 100%;"),
-                           br(),
-                           dataTableOutput("shape"),
-                           style = "overflow-y: auto; overflow-x: auto;"),
-
-                         box(
-                           downloadButton(outputId = "downloadShape", label = "Download Shape-Datei", style = "width: 100%;")
-                         )
-                  )
-                )
+                                                shinydashboard::box(
+                                                  shiny::downloadButton(outputId = "downloadShape", label = "Download Shape-Datei", style = "width: 100%;")
+                                                )
+                                  )
+                                )
         ),
 
-        tabItem(
+        shinydashboard::tabItem(
           tabName = "About",
-          fluidRow(
-            column(
+          shiny::fluidRow(
+            shiny::column(
               width = 8, offset = 2,
               style = "text-align: justify;",
-              h2(strong("Ãber Poly4AT")),
-              div(style = "margin-bottom: 20px;",
-                  p("Diese Website wurde entwickelt, um die API-Schnittstelle zu INVEKOS FeldstÃ¼ck-Polygone auch ohne Programmierkenntnisse nutzen zu kÃ¶nnen. Die App ermÃ¶glicht es, eine einzelne Koordinate abzufragen sowie eine Koordinatenliste hochzuladen, um Informationen Ã¼ber die SchlÃ¤ge zu erhalten.")
+              shiny::h2(shiny::strong("Über Poly4AT")),
+              shiny::div(style = "margin-bottom: 20px;",
+                         shiny::p("Diese Website wurde entwickelt, um die API-Schnittstelle zu INVEKOS Feldstück-Polygone auch ohne Programmierkenntnisse nutzen zu können. Die App ermöglicht es, eine einzelne Koordinate abzufragen sowie eine Koordinatenliste hochzuladen, um Informationen über die Schläge zu erhalten.")
+              ),
+              shiny::h3(shiny::strong("Datenweiterverarbeitung")),
+              shiny::div(style = "margin-bottom: 20px;",
+                         shiny::p("Die auf dieser Website angezeigten Daten stammen von der INVEKOS API-Schnittstelle. Die Weiterverwendung der Daten ist nur mit entsprechender Zitierung von AMA INVEKOS erlaubt."),
+
+                         shiny::p("Für die Daten haben wir folgenden Zitiervorschlag:"),
+                         shiny::tags$blockquote(
+                           "AMA. (Jahr der Abfrage). OGC Features API [API]. Abgerufen am 1. Oktober 2024, von https://gis.lfrz.gv.at/ogcapi009501/ogc/features/api",
+                           style = "font-style: italic; color: #555;"
+                         ),
+
+                         shiny::p("Für Poly4AT verwenden Sie die Citation in R:"),
+                         shiny::tags$blockquote(
+                           "Wieser S (2024). Poly4AT: Access INVEKOS API for Field Polygons. R package version 1.0.",
+                           style = "font-style: italic; color: #555;"
+                         ),
+                         shiny::p("Hier ist der BibTeX-Eintrag für LaTeX-Benutzer:"),
+                         shiny::tags$blockquote(
+                           "@Manual{Poly4AT,\n",
+                           "  title = {Poly4AT: Access INVEKOS API for Field Polygons},\n",
+                           "  author = {Sebastian Wieser},\n",
+                           "  year = {2024},\n",
+                           "  note = {R package version 1.0}\n",
+                           "}",
+                           style = "font-family: monospace; font-size: 14px; color: #555;"
+                         )
               ),
 
-              h3(strong("Datenweiterverarbeitung")),
-              div(style = "margin-bottom: 20px;",
-                  p("Die auf dieser Website angezeigten Daten stammen von der INVEKOS API-Schnittstelle. Die Weiterverwendung der Daten ist nur mit entsprechender Zitierung von AMA INVEKOS erlaubt."),
-
-                  p("FÃ¼r die Daten haben wir folgenden Zitiervorschlag:"),
-                  tags$blockquote(
-                    "AMA. (Jahr der Abfrage). OGC Features API [API]. Abgerufen am 1. Oktober 2024, von https://gis.lfrz.gv.at/ogcapi009501/ogc/features/api",
-                    style = "font-style: italic; color: #555;"
-                  ),
-
-                  p("FÃ¼r Poly4AT verwenden Sie die Citation in R:"),
-                  tags$blockquote(
-                    "Wieser S (2024). Poly4AT: Access INVEKOS API for Field Polygons. R package version 1.0.",
-                    style = "font-style: italic; color: #555;"
-                  ),
-                  p("Hier ist der BibTeX-Eintrag fÃ¼r LaTeX-Benutzer:"),
-                  tags$blockquote(
-                    "@Manual{Poly4AT,\n",
-                    "  title = {Poly4AT: Access INVEKOS API for Field Polygons},\n",
-                    "  author = {Sebastian Wieser},\n",
-                    "  year = {2024},\n",
-                    "  note = {R package version 1.0}\n",
-                    "}",
-                    style = "font-family: monospace; font-size: 14px; color: #555;"
-                  )
+              shiny::h3(shiny::strong("Datenschutz")),
+              shiny::div(style = "margin-bottom: 20px;",
+                         shiny::p("Bitte beachten Sie, dass wir keine persönlichen Daten ohne Zustimmung sammeln oder weitergeben."),
+                         shiny::tags$ul(
+                           shiny::tags$li("Ihre Inputdaten werden nicht gespeichert und sind nach der Sitzung gelöscht.")
+                         )
               ),
 
-              h3(strong("Datenschutz")),
-              div(style = "margin-bottom: 20px;",
-                  p("Bitte beachten Sie, dass wir keine persÃ¶nlichen Daten ohne Zustimmung sammeln oder weitergeben."),
-                  tags$ul(
-                    tags$li("Ihre Inputdaten werden nicht gespeichert und sind nach der Sitzung gelÃ¶scht.")
-                  )
+              shiny::h3(shiny::strong("Lizenz")),
+              shiny::div(style = "margin-bottom: 20px;",
+                         shiny::p("Der Inhalt und der Quellcode dieser Website unterliegen der MIT Licence. Dies bedeutet, dass Sie den Quellcode verwenden, modifizieren und weiterverbreiten können, sofern die ursprüngliche Urheberschaft anerkannt wird.")
               ),
 
-              h3(strong("Lizenz")),
-              div(style = "margin-bottom: 20px;",
-                  p("Der Inhalt und der Quellcode dieser Website unterliegen der MIT Licence. Dies bedeutet, dass Sie den Quellcode verwenden, modifizieren und weiterverbreiten kÃ¶nnen, sofern die ursprÃ¼ngliche Urheberschaft anerkannt wird.")
-              ),
-
-              h3(strong("Kontakt")),
-              p("Wenn Sie Fragen oder Anmerkungen bezÃ¼glich Poly4AT haben, kontaktieren Sie uns bitte unter ",
-                a("poly4at@gmail.com", href = "mailto:poly4at@gmail.com"))
+              shiny::h3(shiny::strong("Kontakt")),
+              shiny::p("Wenn Sie Fragen oder Anmerkungen bezüglich Poly4AT haben, kontaktieren Sie uns bitte unter ",
+                       shiny::a("poly4at@gmail.com", href = "mailto:poly4at@gmail.com"))
             )
           )
         )
@@ -154,37 +155,34 @@ poly4AT_processor <- function(...) {
     )
   )
 
-
-
-
-
   server <- function(input, output, session) {
 
-    all_filtered_sf <- reactiveVal(NULL)
-    coordinatesinput <- reactiveValues(coordinates = NULL)
+    all_filtered_sf <- shiny::reactiveVal(NULL)
+    coordinatesinput <- shiny::reactiveValues(coordinates = NULL)
 
-    output$loading <- renderUI({
-      actionButton("updateMap", "Update Map")
+    output$loading <- shiny::renderUI({
+      shiny::actionButton("updateMap", "Update Map")
     })
 
 
-    load(system.file("data/austria_boundary.RData", package = "Poly4AT"))
+    utils::data("austria_boundary", package = "Poly4AT")
 
-    output$map <- renderLeaflet({
-      leaflet() %>%
-        addProviderTiles("Esri.WorldImagery", group = "Satellite") %>%
-        addProviderTiles("OpenStreetMap.Mapnik", group = "Street") %>%
-        addFullscreenControl() %>%
-        setView(lng = 14.5501, lat = 47.5162, zoom = 7) %>%
-        addLayersControl(
+
+    output$map <- leaflet::renderLeaflet({
+      leaflet::leaflet() %>%
+        leaflet::addProviderTiles("Esri.WorldImagery", group = "Satellite") %>%
+        leaflet::addProviderTiles("OpenStreetMap.Mapnik", group = "Street") %>%
+        leaflet.extras::addFullscreenControl() %>%
+        leaflet::setView(lng = 14.5501, lat = 47.5162, zoom = 7) %>%
+        leaflet::addLayersControl(
           baseGroups = c("Satellite", "Street"),
-          options = layersControlOptions(collapsed = FALSE)
+          options = leaflet::layersControlOptions(collapsed = FALSE)
         )
     })
 
-    observe({
-      res <- GET("https://gis.lfrz.gv.at/api/geodata/i009501/ogc/features/v1/openapi?f=application%2Fvnd.oai.openapi%2Bjson%3Bversion%3D3.0")
-      data <- fromJSON(content(res, "text"))
+    shiny::observe({
+      res <- httr::GET("https://gis.lfrz.gv.at/api/geodata/i009501/ogc/features/v1/openapi?f=application%2Fvnd.oai.openapi%2Bjson%3Bversion%3D3.0")
+      data <- jsonlite::fromJSON(httr::content(res, "text"))
       InfoDaten <- as.data.frame(data$components$parameters$collectionId$schema$enum)
 
       colnames(InfoDaten)[1] <- "Year"
@@ -192,19 +190,19 @@ poly4AT_processor <- function(...) {
       InfoDaten <- InfoDaten[grep("polygon", InfoDaten$Year, ignore.case = TRUE), , drop = FALSE]
 
       InfoDaten$Year <- sub("i009501:", "", InfoDaten$Year)
-      updateSelectInput(session, "year", choices = InfoDaten$Year)
+      shiny::updateSelectInput(session, "year", choices = InfoDaten$Year)
     })
 
-    observeEvent(input$updateMap, {
+    shiny::observeEvent(input$updateMap, {
       latitude <- as.numeric(input$latitude)
       longitude <- as.numeric(input$longitude)
       selected_year <- input$year
 
-      point <- st_point(c(longitude, latitude))
-      point_sf <- st_sfc(point, crs = st_crs(austria_boundary))
+      point <- sf::st_point(c(longitude, latitude))
+      point_sf <- sf::st_sfc(point, crs = sf::st_crs(austria_boundary))
 
 
-      if (st_contains(austria_boundary, point_sf, sparse = FALSE)) {
+      if (sf::st_contains(austria_boundary, point_sf, sparse = FALSE)) {
         bbox <- paste(longitude - 0.001, latitude - 0.001, longitude + 0.001, latitude + 0.001, sep = ",")
 
         base_url <- "https://gis.lfrz.gv.at/api/geodata/i009501/ogc/features/v1/collections/"
@@ -221,23 +219,23 @@ poly4AT_processor <- function(...) {
         url <- get_thredds_url(selected_year, bbox)
 
         AnfrageDaten2 <- tryCatch({
-          geojson_sf(url)
+          geojsonsf::geojson_sf(url)
         }, error = function(e) {
           NULL
         })
 
         if (!is.null(AnfrageDaten2)) {
-          contains <- st_contains(AnfrageDaten2, point)
+          contains <- sf::st_contains(AnfrageDaten2, point)
           contains_ids <- which(lengths(contains) > 0)
 
-          leafletProxy("map") %>%
-            clearShapes() %>%
-            addPolygons(data = AnfrageDaten2,
-                        popup = ~paste("FlÃ¤che ha: ", sprintf("%.1f", sl_flaeche_brutto_ha),
-                                       "<br>",
-                                       "Schlagnutzung: ", snar_bezeichnung)) %>%
-            addMarkers(lng = longitude, lat = latitude) %>%
-            setView(lng = longitude, lat = latitude, zoom = 15)
+          leaflet::leafletProxy("map") %>%
+            leaflet::clearShapes() %>%
+            leaflet::addPolygons(data = AnfrageDaten2,
+                                 popup = ~paste("FlCB$che ha: ", sprintf("%.1f", sl_flaeche_brutto_ha),
+                                                "<br>",
+                                                "Schlagnutzung: ", snar_bezeichnung)) %>%
+            leaflet::addMarkers(lng = longitude, lat = latitude) %>%
+            leaflet::setView(lng = longitude, lat = latitude, zoom = 15)
         } else {
           showModal(modalDialog(
             title = "Error",
@@ -245,25 +243,25 @@ poly4AT_processor <- function(...) {
           ))
         }
       } else {
-        showModal(modalDialog(
+        shiny::showModal(shiny::modalDialog(
           title = "Fehler",
-          "Die eingegebenen Koordinaten liegen auÃerhalb von Ãsterreich. Bitte versuchen Sie es erneut."
+          "Die eingegebenen Koordinaten liegen auCBerhalb von CBsterreich. Bitte versuchen Sie es erneut."
         ))
       }
     })
 
-    observeEvent(input$showTable, {
-      output$file2 <- renderDataTable({
-        inFile <- head(input$file1)
+    shiny::observeEvent(input$showTable, {
+      output$file2 <- DT::renderDataTable({
+        inFile <- utils::head(input$file1)
         if (is.null(inFile))
           return(NULL)
         readxl::read_excel(inFile$datapath)
       })
     })
 
-    observe({
-      res <- GET("https://gis.lfrz.gv.at/api/geodata/i009501/ogc/features/v1/openapi?f=application%2Fvnd.oai.openapi%2Bjson%3Bversion%3D3.0")
-      data <- fromJSON(content(res, "text"))
+    shiny::observe({
+      res <- httr::GET("https://gis.lfrz.gv.at/api/geodata/i009501/ogc/features/v1/openapi?f=application%2Fvnd.oai.openapi%2Bjson%3Bversion%3D3.0")
+      data <- jsonlite::fromJSON(httr::content(res, "text"))
       InfoDaten <- as.data.frame(data$components$parameters$collectionId$schema$enum)
 
       colnames(InfoDaten)[1] <- "Year"
@@ -271,22 +269,22 @@ poly4AT_processor <- function(...) {
       InfoDaten <- InfoDaten[grep("polygon", InfoDaten$Year, ignore.case = TRUE), , drop = FALSE]
 
       InfoDaten$Year <- sub("i009501:", "", InfoDaten$Year)
-      updateSelectInput(session, "yearmulti", choices = InfoDaten$Year)
+      shiny::updateSelectInput(session, "yearmulti", choices = InfoDaten$Year)
     })
 
-    output$mapmulti <- renderLeaflet({
-      leaflet() %>%
-        addProviderTiles("Esri.WorldImagery", group = "Satellite") %>%
-        addProviderTiles("OpenStreetMap.Mapnik", group = "Street") %>%
-        addFullscreenControl() %>%
-        setView(lng = 14.5501, lat = 47.5162, zoom = 7) %>%
-        addLayersControl(
+    output$mapmulti <- leaflet::renderLeaflet({
+      leaflet::leaflet() %>%
+        leaflet::addProviderTiles("Esri.WorldImagery", group = "Satellite") %>%
+        leaflet::addProviderTiles("OpenStreetMap.Mapnik", group = "Street") %>%
+        leaflet.extras::addFullscreenControl() %>%
+        leaflet::setView(lng = 14.5501, lat = 47.5162, zoom = 7) %>%
+        leaflet::addLayersControl(
           baseGroups = c("Satellite", "Street"),
           options = layersControlOptions(collapsed = FALSE)
         )
     })
 
-    observeEvent(input$showmapmulti, {
+    shiny::observeEvent(input$showmapmulti, {
       selected_year <- input$yearmulti
       inFile <- readxl::read_excel(input$file1$datapath)
 
@@ -297,10 +295,10 @@ poly4AT_processor <- function(...) {
       invalid_coordinates <- list()
 
       for (i in 1:nrow(coordinates)) {
-        point <- st_point(c(coordinates$longitude[i], coordinates$latitude[i]))
-        point_sf <- st_sfc(point, crs = st_crs(austria_boundary))
+        point <- sf::st_point(c(coordinates$longitude[i], coordinates$latitude[i]))
+        point_sf <- sf::st_sfc(point, crs = sf::st_crs(austria_boundary))
 
-        if (st_contains(austria_boundary, point_sf, sparse = FALSE)) {
+        if (sf::st_contains(austria_boundary, point_sf, sparse = FALSE)) {
           valid_coordinates[[length(valid_coordinates) + 1]] <- coordinates[i, ]
         } else {
           invalid_coordinates[[length(invalid_coordinates) + 1]] <- coordinates[i, ]
@@ -308,9 +306,9 @@ poly4AT_processor <- function(...) {
       }
 
       if (length(invalid_coordinates) > 0) {
-        showModal(modalDialog(
+        shiny::showModal(shiny::modalDialog(
           title = "Fehler",
-          paste("Die folgenden Koordinaten liegen auÃerhalb von Ãsterreich:",
+          paste("Die folgenden Koordinaten liegen auCBerhalb von CBsterreich:",
                 paste(sapply(invalid_coordinates, function(x) x[1]), collapse = ", "))
         ))
       }
@@ -337,7 +335,7 @@ poly4AT_processor <- function(...) {
       for (i in 1:nrow(coordinates)) {
         bbox <- coordinates$bbox[i]
         url <- get_thredds_url(selected_year, bbox)
-        ergebnisse_liste[[coordinates$Name[i]]] <- geojson_sf(url)
+        ergebnisse_liste[[coordinates$Name[i]]] <- geojsonsf::geojson_sf(url)
       }
 
       filtered_polygons <- list()
@@ -345,34 +343,34 @@ poly4AT_processor <- function(...) {
       for (i in seq_along(ergebnisse_liste)) {
         name <- names(ergebnisse_liste)[i]
         current_result <- ergebnisse_liste[[i]]
-        current_point <- st_point(c(coordinates$longitude[i], coordinates$latitude[i]))
-        current_point <- st_sfc(current_point, crs = 4326)
-        contains <- st_contains(current_result, current_point)
+        current_point <- sf::st_point(c(coordinates$longitude[i], coordinates$latitude[i]))
+        current_point <- sf::st_sfc(current_point, crs = 4326)
+        contains <- sf::st_contains(current_result, current_point)
         contains_ids <- which(lengths(contains) > 0)
         filtered_polygons[[name]] <- current_result[contains_ids, ]
       }
 
       all_filtered_sf(all_filtered_sf <- do.call(rbind, filtered_polygons))
 
-      observe({
+      shiny::observe({
         coordinatesinput$coordinates <- coordinates
       })
 
-      leafletProxy("mapmulti") %>%
-        clearShapes() %>%
-        addProviderTiles('Esri.WorldImagery') %>%
-        addPolygons(data = all_filtered_sf(),
-                    popup = paste("FlÃ¤che ha: ", sprintf("%.1f", all_filtered_sf()$sl_flaeche_brutto_ha),
-                                  "<br>",
-                                  "Schlagnutzung: ", all_filtered_sf()$snar_bezeichnung)) %>%
-        addMarkers(data = coordinates,
-                   popup = paste(coordinates$Name)) %>%
-        setView(lng = mean(coordinates$longitude), lat = mean(coordinates$latitude), zoom = 12)
+      leaflet::leafletProxy("mapmulti") %>%
+        leaflet::clearShapes() %>%
+        leaflet::addProviderTiles('Esri.WorldImagery') %>%
+        leaflet::addPolygons(data = all_filtered_sf(),
+                             popup = paste("FlCB$che ha: ", sprintf("%.1f", all_filtered_sf()$sl_flaeche_brutto_ha),
+                                           "<br>",
+                                           "Schlagnutzung: ", all_filtered_sf()$snar_bezeichnung)) %>%
+        leaflet::addMarkers(data = coordinates,
+                            popup = paste(coordinates$Name)) %>%
+        leaflet::setView(lng = mean(coordinates$longitude), lat = mean(coordinates$latitude), zoom = 12)
     })
 
-    observeEvent(input$showshape, {
-      output$shape <- renderDataTable({
-        tableshape <- st_drop_geometry(all_filtered_sf())
+    shiny::observeEvent(input$showshape, {
+      output$shape <- DT::renderDataTable({
+        tableshape <- sf::st_drop_geometry(all_filtered_sf())
         tableshape$Name <- rownames(tableshape)
         coordinates <- coordinatesinput$coordinates
         tableshape <- merge(tableshape, coordinates[,-4], by="Name")
@@ -382,19 +380,19 @@ poly4AT_processor <- function(...) {
 
     shape_map <- all_filtered_sf
 
-    output$downloadShape <- downloadHandler(
+    output$downloadShape <- shiny::downloadHandler(
       filename = function() {
         "Poly4AT.gpkg"
       },
       content = function(file) {
-        st_write(all_filtered_sf(), file)
+        sf::st_write(all_filtered_sf(), file)
       },
       contentType = "application/octet-stream"
     )
   }
 
-  shinyApp(ui = ui, server = server)
+  shiny::shinyApp(ui = ui, server = server)
 }
 
-
+# Call the function to launch the app
 poly4AT_processor()

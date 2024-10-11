@@ -16,12 +16,11 @@ Imports:
     geojsonsf,
     httr,
     jsonlite,
-    bslib,
     shinydashboard,
     DT,
-    writexl,
     leaflet.extras,
-    readxl
+    readxl,
+    utils
 Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3

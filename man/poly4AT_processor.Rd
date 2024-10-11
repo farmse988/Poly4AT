@@ -4,7 +4,7 @@
 \alias{poly4AT_processor}
 \title{Open Shiny App}
 \usage{
-poly4AT_processor(...)
+poly4AT_processor()
 }
 \value{
 A Shiny application.
@@ -17,5 +17,9 @@ Launches the Poly4AT Shiny application for querying geographic data based on coo
   poly4AT_processor()
 }
 
-austria_boundary() # contains the Austrian border geo information
+\dontrun{
+  # Load the dataset to access its content
+  utils::data("austria_boundary", package = "Poly4AT")
+  print(austria_boundary) # contains the Austrian border geo information
+}
 }
