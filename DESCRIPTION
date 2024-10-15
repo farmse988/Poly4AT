@@ -5,7 +5,7 @@ Authors@R:
     person("Sebastian", "Wieser", , "poly4at@gmail.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0009-0008-8940-7937"))
            
-Description: The package includes a shiny app that allows you to access and use the INVEKOS API for field polygons.
+Description: A shiny app that allows to access and use the INVEKOS API for field polygons in Austria.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

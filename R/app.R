@@ -390,5 +390,5 @@ poly4AT_processor <- function() {
   shiny::shinyApp(ui = ui, server = server)
 }
 
-# Call the function to launch the app
+
 poly4AT_processor()
