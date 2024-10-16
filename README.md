@@ -3,9 +3,12 @@
 
 # Poly4AT
 
-The goal of Poly4AT is to access the [INVEKOS
+The goal of Poly4AT is to provide user-friendly access to the [INVEKOS
 API](https://gis.lfrz.gv.at/api/geodata/i009501/ogc/features/v1/) for
-polygons.
+retrieving and interacting with field parcel polygons. The application
+simplifies querying geographic data, allowing users to easily obtain
+polygon information based on coordinates, even without programming
+skills.
 
 ## Installation
 
