@@ -4,7 +4,6 @@ Version: 1.0
 Authors@R: 
     person("Sebastian", "Wieser", , "poly4at@gmail.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0009-0008-8940-7937"))
-           
 Description: A shiny app that allows to access and use the INVEKOS API for field polygons in Austria.
 License: MIT + file LICENSE
 Encoding: UTF-8
@@ -29,3 +28,5 @@ Depends:
     R (>= 3.5.0)
 Config/testthat/edition: 3
 LazyData: true
+URL: https://github.com/farmse988/Poly4AT
+BugReports: https://github.com/farmse988/Poly4AT/issues
