@@ -78,7 +78,7 @@ citation("Poly4AT")
 #> Um Paket 'Poly4AT' in Publikationen zu zitieren, nutzen Sie bitte:
 #> 
 #>   Wieser S (2024). _Poly4AT: Access INVEKOS API for Field Polygons_. R
-#>   package version 1.0.
+#>   package version 1.0, <https://github.com/farmse988/Poly4AT>.
 #> 
 #> Ein BibTeX-Eintrag für LaTeX-Benutzer ist
 #> 
@@ -87,6 +87,7 @@ citation("Poly4AT")
 #>     author = {Sebastian Wieser},
 #>     year = {2024},
 #>     note = {R package version 1.0},
+#>     url = {https://github.com/farmse988/Poly4AT},
 #>   }
 ```
 
