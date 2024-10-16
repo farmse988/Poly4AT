@@ -89,8 +89,8 @@ citation("Poly4AT")
 
 ## Citation for API Data
 
-AMA. (year of request). OGC Features API \[API\].requested on 1 October
-2024, from <https://gis.lfrz.gv.at/api/geodata/i009501/ogc/features/v1/>
+AMA. (year of request). OGC Features API.requested on \[dd.mm.yyyy\],
+from <https://gis.lfrz.gv.at/api/geodata/i009501/ogc/features/v1/>
 
 ## Language
 
