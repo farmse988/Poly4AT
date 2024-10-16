@@ -97,7 +97,7 @@ from <https://gis.lfrz.gv.at/api/geodata/i009501/ogc/features/v1/>
 
 ## Language
 
-The user interface (UI) of Shiny is in German, while the documentation
+The user interface (UI) of Poly4AT is in German, while the documentation
 and examples are in English. This ensures a user-friendly experience for
 German-speaking users and at the same time comprehensive information for
 international users.
