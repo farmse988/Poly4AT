@@ -13,7 +13,7 @@ Install the following packages if they are not already installed.
 
 ``` r
 
-# install.packages(c("shiny", "sf", "leaflet", "geojsonsf", "httr", "jsonlite", "shinydashboard", "DT", "leaflet.extras"))
+# install.packages(c("shiny", "sf", "leaflet", "geojsonsf", "httr", "jsonlite", "shinydashboard", "DT, "leaflet.extras"))
 ```
 
 You can install the development version of Poly4AT from
@@ -27,7 +27,7 @@ devtools::install_github("farmse988/Poly4AT")
 You can install Poly4AT via CRAN
 
 ``` r
-# install.packages("Poly4AT")
+install.packages("Poly4AT")
 ```
 
 ## Usage

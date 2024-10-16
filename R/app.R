@@ -5,17 +5,21 @@
 #' @return A Shiny application.
 #' @export
 #'
-#' @import shiny
+#'
 #' @import leaflet
 #' @import sf
 #' @import httr
-#' @import jsonlite
 #' @import shinydashboard
 #' @importFrom DT dataTableOutput renderDataTable
 #' @import leaflet.extras
 #' @import utils
 #'
+#' @importFrom shiny shinyApp fluidRow column textInput selectInput actionButton
+#' @importFrom shiny conditionalPanel reactiveVal reactiveValues renderUI
+#' @importFrom shiny observe observeEvent modalDialog showModal updateSelectInput
+#' @importFrom shiny downloadHandler
 #'
+#' @importFrom jsonlite fromJSON
 #'
 #' @examples
 #' \dontrun{
@@ -34,7 +38,7 @@ poly4AT_processor <- function() {
       shinydashboard::sidebarMenu(
         shinydashboard::menuItem("Einzelkoordinate abfragen", tabName = "Singlerequest", icon = shiny::icon("location-dot")),
         shinydashboard::menuItem("Koordinatenliste abfragen", tabName = "Mulitrequest", icon = shiny::icon("location-dot")),
-        shinydashboard::menuItem("Über Poly4AT", tabName = "About", icon = shiny::icon("circle-info"))
+        shinydashboard::menuItem("\u00DCber Poly4AT", tabName = "About", icon = shiny::icon("circle-info"))
       )
     ),
     skin = "black",
@@ -45,7 +49,7 @@ poly4AT_processor <- function() {
                                   shiny::column(width = 4,
                                                 shiny::textInput("latitude", "Latitude:", value = ""),
                                                 shiny::textInput("longitude", "Longitude:", value = ""),
-                                                shiny::selectInput("year", "Jahr auswählen:", choices = NULL),
+                                                shiny::selectInput("year", "Jahr ausw\u00E4hlen:", choices = NULL),
                                                 shiny::actionButton("updateMap", "Polygone anzeigen")),
                                   shiny::column(width = 8,
                                                 shiny::conditionalPanel(condition = "!output.loading",
@@ -68,7 +72,7 @@ poly4AT_processor <- function() {
                                                                     title = "Jahresauswahl und Polygone", status = "primary", solidHeader = TRUE, width = 12,
                                                                     shiny::fluidRow(
                                                                       shiny::column(width = 6,
-                                                                                    shiny::selectInput("yearmulti", "Jahr auswählen:", choices = NULL, width = '100%')),
+                                                                                    shiny::selectInput("yearmulti", "Jahr ausw\u00E4hlen:", choices = NULL, width = '100%')),
                                                                       shiny::column(width = 6,
                                                                                     shiny::actionButton("showmapmulti", "Polygone anzeigen", icon = shiny::icon("map"), style = "width: 100%;"))
                                                                     ),
@@ -97,27 +101,27 @@ poly4AT_processor <- function() {
             shiny::column(
               width = 8, offset = 2,
               style = "text-align: justify;",
-              shiny::h2(shiny::strong("Über Poly4AT")),
+              shiny::h2(shiny::strong("\u00DCber Poly4AT")),
               shiny::div(style = "margin-bottom: 20px;",
-                         shiny::p("Diese Website wurde entwickelt, um die API-Schnittstelle zu INVEKOS Feldstück-Polygone auch ohne Programmierkenntnisse nutzen zu können. Die App ermöglicht es, eine einzelne Koordinate abzufragen sowie eine Koordinatenliste hochzuladen, um Informationen über die Schläge zu erhalten.")
-              ),
+                         shiny::p("Diese Website wurde entwickelt, um die API-Schnittstelle zu INVEKOS Feldst\u00FCck-Polygone auch ohne Programmierkenntnisse nutzen zu k\u00F6nnen. Die App erm\u00F6glicht es, eine einzelne Koordinate abzufragen sowie eine Koordinatenliste hochzuladen, um Informationen \u00FCber die Schl\u00E4ge zu erhalten.")
+                         ),
               shiny::h3(shiny::strong("Datenweiterverarbeitung")),
               shiny::div(style = "margin-bottom: 20px;",
                          shiny::p("Die auf dieser Website angezeigten Daten stammen von der INVEKOS API-Schnittstelle. Die Weiterverwendung der Daten ist nur mit entsprechender Zitierung von AMA INVEKOS erlaubt."),
 
-                         shiny::p("Für die Daten haben wir folgenden Zitiervorschlag:"),
+                         shiny::p("F\u00FCr die Daten haben wir folgenden Zitiervorschlag:"),
                          shiny::tags$blockquote(
                            "AMA. (Jahr der Abfrage). OGC Features API.
-                           Abgerufen am dd.mm.yyyy, von https://gis.lfrz.gv.at/ogcapi009501/ogc/features/api",
+                           Abgerufen am dd.mm.yyyy, von https://gis.lfrz.gv.at/api/geodata/i009501/ogc/features/v1",
                            style = "font-style: italic; color: #555;"
                          ),
 
-                         shiny::p("Für Poly4AT verwenden Sie die Citation in R:"),
+                         shiny::p("F\u00FCr Poly4AT verwenden Sie die Citation in R:"),
                          shiny::tags$blockquote(
                            "Wieser S (2024). Poly4AT: Access INVEKOS API for Field Polygons. R package version 1.0.",
                            style = "font-style: italic; color: #555;"
                          ),
-                         shiny::p("Hier ist der BibTeX-Eintrag für LaTeX-Benutzer:"),
+                         shiny::p("Hier ist der BibTeX-Eintrag f\u00FCr LaTeX-Benutzer:"),
                          shiny::tags$blockquote(
                            "@Manual{Poly4AT,\n",
                            "  title = {Poly4AT: Access INVEKOS API for Field Polygons},\n",
@@ -131,19 +135,19 @@ poly4AT_processor <- function() {
 
               shiny::h3(shiny::strong("Datenschutz")),
               shiny::div(style = "margin-bottom: 20px;",
-                         shiny::p("Bitte beachten Sie, dass wir keine persönlichen Daten ohne Zustimmung sammeln oder weitergeben."),
+                         shiny::p("Bitte beachten Sie, dass wir keine pers\u00F6nlichen Daten ohne Zustimmung sammeln oder weitergeben."),
                          shiny::tags$ul(
-                           shiny::tags$li("Ihre Inputdaten werden nicht gespeichert und sind nach der Sitzung gelöscht.")
+                           shiny::tags$li("Ihre Inputdaten werden nicht gespeichert und sind nach der Sitzung gel\u00F6scht.")
                          )
               ),
 
               shiny::h3(shiny::strong("Lizenz")),
               shiny::div(style = "margin-bottom: 20px;",
-                         shiny::p("Der Inhalt und der Quellcode dieser Website unterliegen der MIT Licence. Dies bedeutet, dass Sie den Quellcode verwenden, modifizieren und weiterverbreiten können, sofern die ursprüngliche Urheberschaft anerkannt wird.")
+                         shiny::p("Der Inhalt und der Quellcode dieser Website unterliegen der MIT Licence. Dies bedeutet, dass Sie den Quellcode verwenden, modifizieren und weiterverbreiten k\u00F6nnen, sofern die urspr\u00FCngliche Urheberschaft anerkannt wird.")
               ),
 
               shiny::h3(shiny::strong("Kontakt")),
-              shiny::p("Wenn Sie Fragen oder Anmerkungen bezüglich Poly4AT haben, kontaktieren Sie uns bitte unter ",
+              shiny::p("Wenn Sie Fragen oder Anmerkungen bez\u00FCglich Poly4AT haben, kontaktieren Sie bitte ",
                        shiny::a("poly4at@gmail.com", href = "mailto:poly4at@gmail.com"))
             )
           )
@@ -227,7 +231,7 @@ poly4AT_processor <- function() {
           leaflet::leafletProxy("map") %>%
             leaflet::clearShapes() %>%
             leaflet::addPolygons(data = AnfrageDaten2,
-                                 popup = ~paste("Fläche ha: ", sprintf("%.1f", sl_flaeche_brutto_ha),
+                                 popup =  ~paste("Fl\u00E4che ha: ", sprintf("%.1f", sl_flaeche_brutto_ha),
                                                 "<br>",
                                                 "Schlagnutzung: ", snar_bezeichnung)) %>%
             leaflet::addMarkers(lng = longitude, lat = latitude) %>%
@@ -241,7 +245,7 @@ poly4AT_processor <- function() {
       } else {
         shiny::showModal(shiny::modalDialog(
           title = "Fehler",
-          "Die eingegebenen Koordinaten liegen außerhalb von Österreich. Bitte versuchen Sie es erneut."
+          "Die eingegebenen Koordinaten liegen au\u00DFerhalb von \u00D6sterreich. Bitte versuchen Sie es erneut."
         ))
       }
     })
@@ -304,7 +308,7 @@ poly4AT_processor <- function() {
       if (length(invalid_coordinates) > 0) {
         shiny::showModal(shiny::modalDialog(
           title = "Fehler",
-          paste("Die folgenden Koordinaten liegen außerhalb von Österreich:",
+          paste("Die folgenden Koordinaten liegen au\u00DFerhalb von \u00D6sterreich:",
                 paste(sapply(invalid_coordinates, function(x) x[1]), collapse = ", "))
         ))
       }
@@ -356,7 +360,7 @@ poly4AT_processor <- function() {
         leaflet::clearShapes() %>%
         leaflet::addProviderTiles('Esri.WorldImagery') %>%
         leaflet::addPolygons(data = all_filtered_sf(),
-                             popup = paste("Fläche ha: ", sprintf("%.1f", all_filtered_sf()$sl_flaeche_brutto_ha),
+                             popup =  ~paste("Fl\u00E4che ha: ", sprintf("%.1f", all_filtered_sf()$sl_flaeche_brutto_ha),
                                            "<br>",
                                            "Schlagnutzung: ", all_filtered_sf()$snar_bezeichnung)) %>%
         leaflet::addMarkers(data = coordinates,
