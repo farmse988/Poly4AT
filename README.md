@@ -17,7 +17,7 @@ Install the following packages if they are not already installed.
 ```
 
 You can install the development version of Poly4AT from
-[GitHub](https://github.com/farmse988/Poly4AT.git) with:
+[GitHub](https://github.com/farmse988/Poly4AT) with:
 
 ``` r
 # install.packages("devtools")
