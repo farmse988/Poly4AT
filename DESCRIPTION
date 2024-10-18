@@ -1,6 +1,6 @@
 Package: Poly4AT
 Title: Access 'INVEKOS' API for Field Polygons
-Version: 1.0
+Version: 1.0.1
 Authors@R: 
     person("Sebastian", "Wieser", , "poly4at@gmail.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0009-0008-8940-7937"))
