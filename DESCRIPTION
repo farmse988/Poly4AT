@@ -1,10 +1,10 @@
 Package: Poly4AT
-Title: Access INVEKOS API for Field Polygons
+Title: Access 'INVEKOS' API for Field Polygons
 Version: 1.0
 Authors@R: 
     person("Sebastian", "Wieser", , "poly4at@gmail.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0009-0008-8940-7937"))
-Description: A shiny app that allows to access and use the INVEKOS API for field polygons in Austria.
+Description: A 'shiny' app that allows to access and use the 'INVEKOS' API for field polygons in Austria. API documentation is available at <https://gis.lfrz.gv.at/api/geodata/i009501/ogc/features/v1/>.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
