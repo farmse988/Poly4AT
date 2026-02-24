@@ -11,7 +11,6 @@
 #' @import httr
 #' @import shinydashboard
 #' @importFrom DT dataTableOutput renderDataTable
-#' @import leaflet.extras
 #' @import utils
 #'
 #' @importFrom shiny shinyApp fluidRow column textInput selectInput actionButton
@@ -172,7 +171,6 @@ poly4AT_processor <- function() {
       leaflet::leaflet() %>%
         leaflet::addProviderTiles("Esri.WorldImagery", group = "Satellite") %>%
         leaflet::addProviderTiles("OpenStreetMap.Mapnik", group = "Street") %>%
-        leaflet.extras::addFullscreenControl() %>%
         leaflet::setView(lng = 14.5501, lat = 47.5162, zoom = 7) %>%
         leaflet::addLayersControl(
           baseGroups = c("Satellite", "Street"),
@@ -276,7 +274,6 @@ poly4AT_processor <- function() {
       leaflet::leaflet() %>%
         leaflet::addProviderTiles("Esri.WorldImagery", group = "Satellite") %>%
         leaflet::addProviderTiles("OpenStreetMap.Mapnik", group = "Street") %>%
-        leaflet.extras::addFullscreenControl() %>%
         leaflet::setView(lng = 14.5501, lat = 47.5162, zoom = 7) %>%
         leaflet::addLayersControl(
           baseGroups = c("Satellite", "Street"),

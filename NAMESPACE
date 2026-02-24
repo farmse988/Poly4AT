@@ -3,7 +3,6 @@
 export(poly4AT_processor)
 import(httr)
 import(leaflet)
-import(leaflet.extras)
 import(sf)
 import(shinydashboard)
 import(utils)

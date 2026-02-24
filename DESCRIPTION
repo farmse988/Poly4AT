@@ -1,6 +1,6 @@
 Package: Poly4AT
 Title: Access 'INVEKOS' API for Field Polygons
-Version: 1.0.1
+Version: 1.0.2
 Authors@R: 
     person("Sebastian", "Wieser", , "poly4at@gmail.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0009-0008-8940-7937"))
@@ -9,7 +9,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
-Date: 2024-10-11 
+Date: 2026-02-25 
 Imports:
     shiny,
     sf,
@@ -19,7 +19,6 @@ Imports:
     jsonlite,
     shinydashboard,
     DT,
-    leaflet.extras,
     readxl,
     utils
 Suggests:
